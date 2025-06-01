@@ -1,4 +1,4 @@
-## 👋 Xin chào, mình là Hoàng Duy Hương
+## 👋 Xin chào, mình là Hoàng Duy Hướng
 🎓 Sinh viên tại HCMUTE  
 💻 Yêu thích lập trình nhúng, Flutter, và xử lý ảnh vệ tinh  
 📫 Email: dellcook69@gmail.com  
