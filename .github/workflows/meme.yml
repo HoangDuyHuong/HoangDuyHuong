@@ -1,1 +1,33 @@
+name: Update Random Meme
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Chạy mỗi ngày lúc 00:00 UTC
+  workflow_dispatch:     # Cho phép chạy thủ công từ giao diện
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Update README with random meme
+        run: |
+          curl -s https://meme-api.com/gimme > meme.json
+          IMAGE_URL=$(jq -r .url meme.json)
+          
+          echo "### 😂 Random Dev Meme" > meme.md
+          echo "![](${IMAGE_URL})" >> meme.md
+
+          awk '/### 😂 Random Dev Meme/ {exit} {print}' README.md > tmp.md
+          cat tmp.md meme.md > README.md
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          git commit -m "🤖 Daily meme update" || echo "No changes"
+          git push
 
